@@ -10,9 +10,12 @@ import (
 	"github.com/tehsphinx/errs"
 )
 
+// Setup is used to set up logging.
+// If a context is passed, the logger will be added to the context and the context returned.
 func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 	cfg := getOptions(opts)
 
+	//nolint:reassign
 	zerolog.ErrorStackMarshaler = func(err error) interface{} {
 		stack := errs.FormatStack(err)
 		if stack == "" {
@@ -38,6 +41,8 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 }
 
 // Logger is the global logger.
+//
+//nolint:gochecknoglobals
 var Logger = zerolog.New(os.Stderr).With().Timestamp().Logger()
 
 // Err starts a new message with error level with err as a field if not nil or

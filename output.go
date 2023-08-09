@@ -7,6 +7,7 @@ import (
 	"github.com/rs/zerolog"
 )
 
+// Format defines the log format.
 type Format string
 
 const (
@@ -20,6 +21,7 @@ const (
 	FormatCustom Format = "custom"
 )
 
+// FormatInput allows the input format to be of type string or type Format.
 type FormatInput interface {
 	string | Format
 }
