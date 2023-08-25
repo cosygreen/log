@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/rs/zerolog"
 	"github.com/tehsphinx/errs"
@@ -14,6 +15,8 @@ import (
 // If a context is passed, the logger will be added to the context and the context returned.
 func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 	cfg := getOptions(opts)
+
+	zerolog.TimeFieldFormat = time.RFC3339Nano
 
 	//nolint:reassign
 	zerolog.ErrorStackMarshaler = func(err error) interface{} {
@@ -29,7 +32,17 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 	logger := zerolog.New(out).With().Timestamp().Caller().Stack().Logger()
 	logger.UpdateContext(cfg.updateCtx)
 	logger.UpdateContext(func(c zerolog.Context) zerolog.Context {
-		return c.Str("service", cfg.serviceName)
+		c = c.Str("service", cfg.serviceName)
+		if cfg.hostName != "" {
+			c = c.Str("host", cfg.hostName)
+		}
+		if cfg.region != "" {
+			c = c.Str("region", cfg.region)
+		}
+		if cfg.publicIP != "" {
+			c = c.Str("publicIP", cfg.publicIP)
+		}
+		return c
 	})
 
 	Logger = logger

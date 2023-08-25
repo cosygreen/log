@@ -49,8 +49,6 @@ linters-settings:
     tls-signature-scheme: true
     constant-kind: true
     syslog-priority: true
-  whitespace:
-    multi-func: true
   wrapcheck:
     ignorePackageGlobs:
       - github.com/tehsphinx/errs

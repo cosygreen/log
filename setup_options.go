@@ -23,6 +23,9 @@ func getOptions(opts []SetupOption) setupOptions {
 
 type setupOptions struct {
 	serviceName string
+	hostName    string
+	region      string
+	publicIP    string
 	format      Format
 	output      io.Writer
 	updateCtx   func(c zerolog.Context) zerolog.Context
@@ -35,6 +38,27 @@ type SetupOption func(*setupOptions)
 func ServiceName(name string) SetupOption {
 	return func(opts *setupOptions) {
 		opts.serviceName = name
+	}
+}
+
+// HostName sets the host name for logging.
+func HostName(name string) SetupOption {
+	return func(opts *setupOptions) {
+		opts.hostName = name
+	}
+}
+
+// Region sets the data center region for logging.
+func Region(name string) SetupOption {
+	return func(opts *setupOptions) {
+		opts.region = name
+	}
+}
+
+// PublicIP sets the public ip for logging.
+func PublicIP(ip string) SetupOption {
+	return func(opts *setupOptions) {
+		opts.publicIP = ip
 	}
 }
 
