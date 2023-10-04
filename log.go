@@ -18,6 +18,9 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 
 	zerolog.TimeFieldFormat = time.RFC3339Nano
 
+	//nolint:reassign // zerolog global variables are meant to be reassigned for setup.
+	zerolog.ErrorMarshalFunc = zerologErrorMarshalFunc
+
 	//nolint:reassign
 	zerolog.ErrorStackMarshaler = func(err error) interface{} {
 		stack := errs.FormatStack(err)
