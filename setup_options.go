@@ -11,6 +11,7 @@ func getOptions(opts []SetupOption) setupOptions {
 	cfg := setupOptions{
 		serviceName: "unknown",
 		format:      FormatJSON,
+		level:       zerolog.TraceLevel,
 		output:      os.Stdout,
 		updateCtx:   func(c zerolog.Context) zerolog.Context { return c },
 	}
@@ -27,6 +28,7 @@ type setupOptions struct {
 	region      string
 	publicIP    string
 	format      Format
+	level       zerolog.Level
 	output      io.Writer
 	updateCtx   func(c zerolog.Context) zerolog.Context
 }
@@ -68,6 +70,15 @@ func WithFormat[T FormatInput](format T) SetupOption {
 
 	return func(opts *setupOptions) {
 		opts.format = logFormat
+	}
+}
+
+// WithLevel sets the global log level to use for logging.
+func WithLevel[T LevelInput](level T) SetupOption {
+	logLevel := getLevel(level)
+
+	return func(opts *setupOptions) {
+		opts.level = logLevel
 	}
 }
 

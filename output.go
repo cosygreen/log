@@ -26,6 +26,11 @@ type FormatInput interface {
 	string | Format
 }
 
+// LevelInput allows the level input to be of type string or type zerolog.Level.
+type LevelInput interface {
+	string | zerolog.Level
+}
+
 func getFormat[T FormatInput](format T) Format {
 	var logFormat Format
 	switch f := any(format).(type) {
@@ -35,6 +40,17 @@ func getFormat[T FormatInput](format T) Format {
 		logFormat = parseLogFormat(f)
 	}
 	return logFormat
+}
+
+func getLevel[T LevelInput](format T) zerolog.Level {
+	logLevel := zerolog.TraceLevel
+	switch f := any(format).(type) {
+	case zerolog.Level:
+		logLevel = f
+	case string:
+		logLevel, _ = zerolog.ParseLevel(f)
+	}
+	return logLevel
 }
 
 func parseLogFormat(format string) Format {
