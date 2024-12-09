@@ -19,9 +19,9 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/cosygreen/errs"
+	"github.com/cosygreen/log"
 	"github.com/rs/zerolog"
-	"github.com/tehsphinx/errs"
-	"github.com/tehsphinx/log"
 )
 
 func main() {

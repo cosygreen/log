@@ -3,8 +3,8 @@ package log
 import (
 	"errors"
 
+	"github.com/cosygreen/errs"
 	"github.com/rs/zerolog"
-	"github.com/tehsphinx/errs"
 )
 
 // zerologErrorMarshalFunc implements custom error marshalling for the error types in the errs package.

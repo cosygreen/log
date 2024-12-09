@@ -3,10 +3,6 @@ linters-settings:
     rules:
       main:
         deny:
-          - pkg: flag
-            desc: "Use github.com/namsral/flag instead."
-          - pkg: github.com/tehsphinx/dbg
-            desc: "Should only be used for debugging."
           - pkg: github.com/bmizerany/assert
             desc: "Use github.com/matryer/is or github.com/stretchr/testify/assert instead."
   funlen:
@@ -51,9 +47,7 @@ linters-settings:
     syslog-priority: true
   wrapcheck:
     ignorePackageGlobs:
-      - github.com/tehsphinx/errs
-      - gitlab.com/dabnis-project/*
-      - storj.io/drpc/drpcerr
+      - github.com/cosygreen/errs
 
 linters:
   enable:

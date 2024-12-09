@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/cosygreen/errs"
 	"github.com/rs/zerolog"
-	"github.com/tehsphinx/errs"
 )
 
 // Setup is used to set up logging.
