@@ -36,6 +36,17 @@ type setupOptions struct {
 // SetupOption defines an option for setting up the logging.
 type SetupOption func(*setupOptions)
 
+func WithConfig(config Config) SetupOption {
+	return func(opts *setupOptions) {
+		opts.level = config.LogLevel
+		opts.format = parseLogFormat(config.LogFormat)
+		opts.serviceName = config.ServiceName
+		opts.hostName = config.HostName
+		opts.region = config.Region
+		opts.publicIP = config.PublicIP
+	}
+}
+
 // ServiceName sets the service name for logging.
 func ServiceName(name string) SetupOption {
 	return func(opts *setupOptions) {
