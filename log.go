@@ -16,12 +16,7 @@ import (
 func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 	cfg := getOptions(opts)
 
-	if cfg.hideTime {
-		zerolog.TimeFieldFormat = "-"
-	} else {
-		zerolog.TimeFieldFormat = time.RFC3339Nano
-	}
-
+	zerolog.TimeFieldFormat = time.RFC3339Nano
 	zerolog.SetGlobalLevel(cfg.level)
 
 	//nolint:reassign // zerolog global variables are meant to be reassigned for setup.
@@ -41,7 +36,9 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 	logger := zerolog.New(out).With().Timestamp().Caller().Stack().Logger()
 	logger.UpdateContext(cfg.updateCtx)
 	logger.UpdateContext(func(c zerolog.Context) zerolog.Context {
-		if cfg.serviceName != "unknown" {
+		switch cfg.serviceName {
+		case "", "unknown":
+		default:
 			c = c.Str("service", cfg.serviceName)
 		}
 		if cfg.hostName != "" {

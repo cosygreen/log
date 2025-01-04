@@ -3,6 +3,7 @@ package log
 import (
 	"bytes"
 	"io"
+	"time"
 
 	"github.com/rs/zerolog"
 )
@@ -13,8 +14,12 @@ type Format string
 const (
 	// FormatPlain uses a zerolog.ConsoleWriter without colors and sends the output to provided output or stdout.
 	FormatPlain Format = "plain"
+	// FormatPlainWithoutTime uses a zerolog.ConsoleWriter without colors and without time and sends the output to provided output or stdout.
+	FormatPlainWithoutTime Format = "plain-notime"
 	// FormatColor uses a zerolog.ConsoleWriter with colors and sends the output to provided output or stdout.
 	FormatColor Format = "color"
+	// FormatColorWithoutTime uses a zerolog.ConsoleWriter with colors and without time and sends the output to provided output or stdout.
+	FormatColorWithoutTime Format = "color-notime"
 	// FormatJSON writes JSON output to the output provided output or stdout.
 	FormatJSON Format = "json"
 	// FormatCustom can be used to pass in a custom output writer.
@@ -55,7 +60,7 @@ func getLevel[T LevelInput](format T) zerolog.Level {
 
 func parseLogFormat(format string) Format {
 	switch Format(format) {
-	case FormatPlain, FormatColor, FormatJSON, FormatCustom:
+	case FormatPlain, FormatColor, FormatJSON, FormatCustom, FormatPlainWithoutTime, FormatColorWithoutTime:
 		return Format(format)
 	}
 	return FormatJSON
@@ -63,20 +68,33 @@ func parseLogFormat(format string) Format {
 
 func getOutput(output io.Writer, format Format) io.Writer {
 	switch format {
-	case FormatJSON:
+	case FormatJSON, FormatCustom:
 		return output
 	case FormatColor:
-		return getConsoleOutput(output, true)
+		return getConsoleOutput(output, true, false)
 	case FormatPlain:
-		return getConsoleOutput(output, false)
-	case FormatCustom:
-		return output
+		return getConsoleOutput(output, false, false)
+	case FormatColorWithoutTime:
+		return getConsoleOutput(output, true, true)
+	case FormatPlainWithoutTime:
+		return getConsoleOutput(output, false, true)
 	}
 	return output
 }
 
-func getConsoleOutput(output io.Writer, color bool) io.Writer {
-	out := zerolog.ConsoleWriter{Out: output, NoColor: !color}
+func getConsoleOutput(output io.Writer, color, noTime bool) io.Writer {
+	var timeFormat string
+	if noTime {
+		if color {
+			timeFormat = "🌱"
+		} else {
+			timeFormat = " "
+		}
+	} else {
+		timeFormat = time.Kitchen
+	}
+
+	out := zerolog.ConsoleWriter{Out: output, NoColor: !color, TimeFormat: timeFormat}
 	out.FieldsExclude = []string{"stack"}
 	out.FormatExtra = func(m map[string]interface{}, buf *bytes.Buffer) error {
 		if stackI, ok := m["stack"]; ok {

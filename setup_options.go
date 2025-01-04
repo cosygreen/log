@@ -45,7 +45,6 @@ func WithConfig(config Config) SetupOption {
 		opts.hostName = config.HostName
 		opts.region = config.Region
 		opts.publicIP = config.PublicIP
-		opts.hideTime = config.HideTime
 	}
 }
 
