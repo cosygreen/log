@@ -16,7 +16,12 @@ import (
 func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 	cfg := getOptions(opts)
 
-	zerolog.TimeFieldFormat = time.RFC3339Nano
+	if cfg.hideTime {
+		zerolog.TimeFieldFormat = "-"
+	} else {
+		zerolog.TimeFieldFormat = time.RFC3339Nano
+	}
+
 	zerolog.SetGlobalLevel(cfg.level)
 
 	//nolint:reassign // zerolog global variables are meant to be reassigned for setup.

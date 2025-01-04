@@ -31,6 +31,7 @@ type setupOptions struct {
 	level       zerolog.Level
 	output      io.Writer
 	updateCtx   func(c zerolog.Context) zerolog.Context
+	hideTime    bool
 }
 
 // SetupOption defines an option for setting up the logging.
@@ -44,6 +45,7 @@ func WithConfig(config Config) SetupOption {
 		opts.hostName = config.HostName
 		opts.region = config.Region
 		opts.publicIP = config.PublicIP
+		opts.hideTime = config.HideTime
 	}
 }
 
