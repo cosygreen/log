@@ -82,6 +82,12 @@ func Printf(format string, v ...interface{}) {
 	Logger.Debug().CallerSkipFrame(1).Msgf(format, v...)
 }
 
+// Errorf sends a log event using error level and no extra field.
+// Arguments are handled in the manner of fmt.Printf.
+func Errorf(format string, v ...interface{}) {
+	Logger.Error().CallerSkipFrame(1).Msgf(format, v...)
+}
+
 // Trace starts a new message with trace level.
 //
 // You must call Msg on the returned event in order to send the event.
