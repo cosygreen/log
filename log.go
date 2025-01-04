@@ -36,7 +36,9 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 	logger := zerolog.New(out).With().Timestamp().Caller().Stack().Logger()
 	logger.UpdateContext(cfg.updateCtx)
 	logger.UpdateContext(func(c zerolog.Context) zerolog.Context {
-		c = c.Str("service", cfg.serviceName)
+		if cfg.serviceName != "unknown" {
+			c = c.Str("service", cfg.serviceName)
+		}
 		if cfg.hostName != "" {
 			c = c.Str("host", cfg.hostName)
 		}
