@@ -33,7 +33,11 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 
 	out := getOutput(cfg.output, cfg.format)
 
-	logger := zerolog.New(out).With().Timestamp().Caller().Stack().Logger()
+	loggerCtx := zerolog.New(out).With().Timestamp()
+	if !cfg.hideCaller {
+		loggerCtx = loggerCtx.Caller()
+	}
+	logger := loggerCtx.Stack().Logger()
 	logger.UpdateContext(cfg.updateCtx)
 	logger.UpdateContext(func(c zerolog.Context) zerolog.Context {
 		switch cfg.serviceName {
@@ -58,6 +62,7 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 	if ctx != nil {
 		ctx = logger.WithContext(ctx)
 	}
+
 	return ctx
 }
 
