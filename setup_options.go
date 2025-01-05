@@ -39,7 +39,8 @@ type SetupOption func(*setupOptions)
 
 func WithConfig(config Config) SetupOption {
 	return func(opts *setupOptions) {
-		opts.level = config.LogLevel
+		level, _ := zerolog.ParseLevel(config.LogLevel)
+		opts.level = level
 		opts.format = parseLogFormat(config.LogFormat)
 		opts.serviceName = config.ServiceName
 		opts.hostName = config.HostName
