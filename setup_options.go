@@ -23,15 +23,16 @@ func getOptions(opts []SetupOption) setupOptions {
 }
 
 type setupOptions struct {
-	serviceName string
-	hostName    string
-	region      string
-	publicIP    string
-	format      Format
-	level       zerolog.Level
-	output      io.Writer
-	updateCtx   func(c zerolog.Context) zerolog.Context
-	hideCaller  bool
+	serviceName  string
+	hostName     string
+	region       string
+	publicIP     string
+	format       Format
+	level        zerolog.Level
+	output       io.Writer // os.Stdout is by default but it can be replaced by WithOutput functional option
+	updateCtx    func(c zerolog.Context) zerolog.Context
+	hideCaller   bool
+	extraWriters []io.Writer
 }
 
 // SetupOption defines an option for setting up the logging.
@@ -47,6 +48,13 @@ func WithConfig(config Config) SetupOption {
 		opts.region = config.Region
 		opts.publicIP = config.PublicIP
 		opts.hideCaller = config.HideCaller
+	}
+}
+
+// WithExtraWriters adds extra writers to the logger, so you can use any Format option.
+func WithExtraWriters(w ...io.Writer) SetupOption {
+	return func(opts *setupOptions) {
+		opts.extraWriters = append(opts.extraWriters, w...)
 	}
 }
 

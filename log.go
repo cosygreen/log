@@ -33,6 +33,10 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 
 	out := getOutput(cfg.output, cfg.format)
 
+	if len(cfg.extraWriters) > 0 {
+		out = zerolog.MultiLevelWriter(append(cfg.extraWriters, out)...)
+	}
+
 	loggerCtx := zerolog.New(out).With().Timestamp()
 	if !cfg.hideCaller {
 		loggerCtx = loggerCtx.Caller()
