@@ -5,15 +5,15 @@ import (
 )
 
 type QlogAdapter struct {
-	logger zerolog.Logger
+	zerolog.Logger
 }
 
 func NewQlogAdapter(logger zerolog.Logger) *QlogAdapter {
 	return &QlogAdapter{
-		logger: logger,
+		Logger: logger,
 	}
 }
 
 func (q *QlogAdapter) Errorf(format string, args ...any) {
-	q.logger.Error().Msgf(format, args...)
+	q.Logger.Error().Msgf(format, args...)
 }
