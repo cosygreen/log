@@ -1,19 +1,17 @@
 package log
 
-import (
-	"github.com/rs/zerolog"
-)
+import "github.com/rs/zerolog"
 
 type QlogAdapter struct {
-	logger zerolog.Logger
+	zerolog.Logger
 }
 
 func NewQlogAdapter(logger zerolog.Logger) *QlogAdapter {
 	return &QlogAdapter{
-		logger: logger,
+		Logger: logger,
 	}
 }
 
-func (q *QlogAdapter) Errorf(format string, args ...any) {
-	q.logger.Error().Msgf(format, args...)
+func (q QlogAdapter) Errorf(format string, args ...any) {
+	q.Logger.Error().Msgf(format, args...)
 }
