@@ -25,16 +25,6 @@ jobs:
             go.sum
             go.work.sum
 
-      - name: Cache Go build cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}-go-build-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-build-
-
       - name: Verify dependencies
         run: go mod verify
 
@@ -53,7 +43,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/go/bin/staticcheck
-          key: ${{ runner.os }}-staticcheck-latest
+          key: ${{ runner.os }}-staticcheck-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-staticcheck-
 
@@ -76,7 +66,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/go/bin/gosec
-          key: ${{ runner.os }}-gosec-master
+          key: ${{ runner.os }}-gosec-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-gosec-
 
