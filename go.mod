@@ -3,7 +3,7 @@ module github.com/cosygreen/log
 go 1.25
 
 require (
-	github.com/cosygreen/errs v0.1.3
+	github.com/cosygreen/errs v0.2.0
 	github.com/rs/zerolog v1.34.0
 )
 
