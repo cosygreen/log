@@ -63,7 +63,7 @@ jobs:
           args: --timeout=5m
 
       - name: Build check
-        run: go build ./...
+        run: go build $(go list ./... | grep -v '/magefile')
 
       - name: Run tests
         run: go test -v ./...
