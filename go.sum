@@ -1,6 +1,6 @@
 github.com/coreos/go-systemd/v22 v22.5.0/go.mod h1:Y58oyj3AT4RCenI/lSvhwexgC+NSVTIJ3seZv2GcEnc=
-github.com/cosygreen/errs v0.2.0 h1:breKCUcS21UUKHJiCKPjSUrLU7O2b4wBOWYroTFla4A=
-github.com/cosygreen/errs v0.2.0/go.mod h1:Kil57a0/76/JSDcEC01iQox8Hs2j71f/ZZ5JHURqBZ8=
+github.com/cosygreen/errs v0.2.1 h1:k/jjT0zRfLB5qxT3DIde5zCE04Jc8wQG/Qoj/ur9xdc=
+github.com/cosygreen/errs v0.2.1/go.mod h1:+txFefOWVx06bq1jhgQeIZlac56j5LyZjlA332ecKjQ=
 github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
 github.com/mattn/go-colorable v0.1.13/go.mod h1:7S9/ev0klgBDR4GtXTXX8a3vIGJpMovkB8vQcUbaXHg=
