@@ -1,6 +1,6 @@
 module github.com/cosygreen/log
 
-go 1.25
+go 1.26
 
 require (
 	github.com/cosygreen/errs v0.2.0
