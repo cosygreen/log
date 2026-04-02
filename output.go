@@ -95,12 +95,16 @@ func getConsoleOutput(output io.Writer, color, noTime bool) io.Writer {
 	}
 
 	out := zerolog.ConsoleWriter{Out: output, NoColor: !color, TimeFormat: timeFormat}
+	// m.gunkov: exclude stack field from the output by default
 	out.FieldsExclude = []string{"stack"}
-	out.FormatExtra = func(m map[string]interface{}, buf *bytes.Buffer) error {
+	out.FormatExtra = func(m map[string]any, buf *bytes.Buffer) error {
+		// m.gunkov: only displays stack when the event actually contains stack field and it is a string
 		if stackI, ok := m["stack"]; ok {
 			if stack, ok := stackI.(string); ok {
-				buf.WriteByte('\n')
-				buf.WriteString(stack)
+				if stack != "" {
+					buf.WriteByte('\n')
+					buf.WriteString(stack)
+				}
 			}
 		}
 		return nil

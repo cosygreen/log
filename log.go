@@ -24,11 +24,7 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 
 	//nolint:reassign
 	zerolog.ErrorStackMarshaler = func(err error) interface{} {
-		stack := errs.FormatStack(err)
-		if stack == "" {
-			return nil
-		}
-		return stack
+		return errs.FormatStack(err)
 	}
 
 	out := getOutput(cfg.output, cfg.format)
