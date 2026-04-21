@@ -4,7 +4,7 @@ go 1.26
 
 require (
 	github.com/cosygreen/errs v0.2.1
-	github.com/rs/zerolog v1.35.0
+	github.com/rs/zerolog v1.35.1
 )
 
 require (
