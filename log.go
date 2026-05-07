@@ -23,7 +23,7 @@ func Setup(ctx context.Context, opts ...SetupOption) context.Context {
 	zerolog.ErrorMarshalFunc = zerologErrorMarshalFunc
 
 	//nolint:reassign
-	zerolog.ErrorStackMarshaler = func(err error) interface{} {
+	zerolog.ErrorStackMarshaler = func(err error) any {
 		return errs.FormatStack(err)
 	}
 
@@ -81,19 +81,19 @@ func Err(err error) *zerolog.Event {
 
 // Print sends a log event using debug level and no extra field.
 // Arguments are handled in the manner of fmt.Print.
-func Print(v ...interface{}) {
+func Print(v ...any) {
 	Logger.Debug().CallerSkipFrame(1).Msg(fmt.Sprint(v...))
 }
 
 // Printf sends a log event using debug level and no extra field.
 // Arguments are handled in the manner of fmt.Printf.
-func Printf(format string, v ...interface{}) {
+func Printf(format string, v ...any) {
 	Logger.Debug().CallerSkipFrame(1).Msgf(format, v...)
 }
 
 // Errorf sends a log event using error level and no extra field.
 // Arguments are handled in the manner of fmt.Printf.
-func Errorf(format string, v ...interface{}) {
+func Errorf(format string, v ...any) {
 	Logger.Error().CallerSkipFrame(1).Msgf(format, v...)
 }
 

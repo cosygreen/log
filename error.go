@@ -2,13 +2,14 @@ package log
 
 import (
 	"errors"
+	"maps"
 
 	"github.com/cosygreen/errs"
 	"github.com/rs/zerolog"
 )
 
 // zerologErrorMarshalFunc implements custom error marshalling for the error types in the errs package.
-func zerologErrorMarshalFunc(err error) interface{} {
+func zerologErrorMarshalFunc(err error) any {
 	var info errInfo
 	if !errors.As(err, &info) {
 		return err
@@ -100,12 +101,10 @@ func (s zerologErr) MarshalZerologObject(event *zerolog.Event) {
 	}
 }
 
-type fieldsT map[string]interface{}
+type fieldsT map[string]any
 
 func (f fieldsT) Join(fields fieldsT) fieldsT {
-	for k, v := range f {
-		fields[k] = v
-	}
+	maps.Copy(fields, f)
 	return fields
 }
 

@@ -1,5 +1,5 @@
-github.com/cosygreen/errs v0.2.1 h1:k/jjT0zRfLB5qxT3DIde5zCE04Jc8wQG/Qoj/ur9xdc=
-github.com/cosygreen/errs v0.2.1/go.mod h1:+txFefOWVx06bq1jhgQeIZlac56j5LyZjlA332ecKjQ=
+github.com/cosygreen/errs v0.2.2 h1:pwvVSCCl6c4Q++NRtsttw9w8EkVZZCubMDpY/FPtJOI=
+github.com/cosygreen/errs v0.2.2/go.mod h1:+txFefOWVx06bq1jhgQeIZlac56j5LyZjlA332ecKjQ=
 github.com/mattn/go-colorable v0.1.14 h1:9A9LHSqF/7dyVVX6g0U9cwm9pG3kP9gSzcuIPHPsaIE=
 github.com/mattn/go-colorable v0.1.14/go.mod h1:6LmQG8QLFO4G5z1gPvYEzlUgJ2wF+stgPZH1UqBm1s8=
 github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWEY=
